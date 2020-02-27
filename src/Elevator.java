@@ -22,7 +22,7 @@ public class Elevator {
     public Elevator(final int id) {
         this.id = id;
     }
-	
+
     @Override
     public String toString() {
         return "\t\tElevator #" + id + ":" +
@@ -49,29 +49,29 @@ public class Elevator {
             System.out.println("\t\tElevator #" + id + ": Arrived at floor #" + currentFloor + ".");
         }
 
-		// take stock of assigned stops and change direction if required
+        // take stock of assigned stops and change direction if required
         if (destinations.isEmpty()) {
             currentDirection = Direction.STOP;
         } else if ((currentDirection == Direction.UP && Collections.max(destinations) < currentFloor)) {
             currentDirection = Direction.DOWN;
-			Collections.sort(destinations);
-			Collections.reverse(destinations);
+            Collections.sort(destinations);
+            Collections.reverse(destinations);
         } else if (currentDirection == Direction.DOWN && Collections.min(destinations) > currentFloor){
             currentDirection = Direction.UP;
-			Collections.sort(destinations);
+            Collections.sort(destinations);
         }
-		
-		//Decide which way to go if the elevator is stopped and has gained a destination
-		if (currentDirection == Direction.STOP && destinations.size() != 0) {
-			int destinationFloor = Integer.MAX_VALUE;
-			for (final Integer d : destinations) {
-				if (Math.abs(currentFloor - d) < Math.abs(currentFloor - destinationFloor)) {
-					destinationFloor = d;
-				}
-			}
 
-			currentDirection = (destinationFloor > currentFloor ? Direction.UP : Direction.DOWN);
-		}
+        //Decide which way to go if the elevator is stopped and has gained a destination
+        if (currentDirection == Direction.STOP && destinations.size() != 0) {
+            int destinationFloor = Integer.MAX_VALUE;
+            for (final Integer d : destinations) {
+                if (Math.abs(currentFloor - d) < Math.abs(currentFloor - destinationFloor)) {
+                    destinationFloor = d;
+                }
+            }
+
+            currentDirection = (destinationFloor > currentFloor ? Direction.UP : Direction.DOWN);
+        }
 
         // update current floor
         if (currentDirection == Direction.DOWN) {
